@@ -17,85 +17,92 @@ public class SafeInput {
         return retString;
 
     }
+
+    /**
+     *
+     * @param pipe a Scanner opened to read from System.in
+     * @param prompt prompt for the user to get an int
+     * @return a int response that is not a String
+     */
     public static int getInt(Scanner pipe, String prompt) {
-        int resultInt = 0;
-        boolean gotAValue = false;
+        int value = 0;
+        boolean done = false;
         String trash = "";
         do {
-            System.out.println('\n' + prompt + ": ");
+            System.out.println(" " + prompt + ": ");
             if(pipe.hasNextInt()){
-                resultInt = pipe.nextInt();
+                value = pipe.nextInt();
                 pipe.nextLine();
-                gotAValue = true;
+                done = true;
             }else{
                 trash = pipe.nextLine();
-                System.out.println("\nInvalid input try again");
+                System.out.println("Invalid input try again");
             }
-        }while(!gotAValue);
-        return resultInt;
+        }while(!done);
+        return value;
     }
     public static double getDouble(Scanner pipe, String prompt) {
-        double resultDouble = 0;
-        boolean gotAValue = false;
+        double finalDouble = 0;
+        boolean doubleDone = false;
         String trash = "";
         do {
             System.out.println('\n' + prompt + ": ");
             if(pipe.hasNextDouble()){
-                resultDouble = pipe.nextDouble();
-                pipe.nextLine();
-                gotAValue = true;
+            finalDouble = pipe.nextDouble();
+            pipe.nextLine();
+            doubleDone = true;
             }else{
-                trash = pipe.nextLine();
-                System.out.println("\nInvalid input try again");
+              trash = pipe.nextLine();
+              System.out.println("\nInvalid input try again");
             }
-        }while(!gotAValue);
-        return resultDouble;
+        }while(!doubleDone);
+        return finalDouble;
     }
     public static int getRangedInt(Scanner pipe, String prompt, int low, int high){
-        int resultRangedInt = 0;
-        boolean gotAValue = false;
+        int RangedInt = 0;
+        boolean rangedIntDone = false;
         String trash = "";
         do {
             System.out.println('\n' + prompt + ": ");
             if(pipe.hasNextInt()){
-                resultRangedInt = pipe.nextInt();
+                RangedInt = pipe.nextInt();
                 pipe.nextLine();
-                if (resultRangedInt >= low && resultRangedInt <= high){
-                    gotAValue = true;
+                if (RangedInt >= low && RangedInt <= high){
+                    rangedIntDone = true;
                 }else
                 {
-                    System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + resultRangedInt);
+                    System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + RangedInt);
                 }
 
             }else{
                 trash = pipe.nextLine();
-                System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + resultRangedInt);
+                System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + RangedInt);
             }
-        }while(!gotAValue);
-        return resultRangedInt;
+        }while(!rangedIntDone);
+        return RangedInt;
     }
     public static double getRangedDouble(Scanner pipe, String prompt, double low, double high){
-        double resultRangedDouble = 0;
-        boolean gotAValue = false;
+        double RangedDouble = 0;
+        boolean RangedDouDone = false;
         String trash = "";
         do {
             System.out.println('\n' + prompt + ": ");
             if(pipe.hasNextDouble()){
-                resultRangedDouble = pipe.nextDouble();
+                RangedDouble = pipe.nextDouble();
                 pipe.nextLine();
-                if (resultRangedDouble >= low && resultRangedDouble <= high){
-                    gotAValue = true;
+                if (RangedDouble >= low && RangedDouble <= high){
+                    RangedDouDone = true;
                 }else
                 {
-                    System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + resultRangedDouble);
+                    System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + RangedDouble);
                 }
 
             }else{
                 trash = pipe.nextLine();
-                System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + resultRangedDouble);
+                System.out.println("You must enter a value in range [" + low + " - " + high + "]: " + RangedDouble);
             }
-        }while(!gotAValue);
-        return resultRangedDouble;
+        }while(!RangedDouDone);
+        return RangedDouble;
     }
     public static boolean getYNConfirm(Scanner pipe, String prompt){
         String retYN = "";
@@ -111,70 +118,26 @@ public class SafeInput {
 
     }
     public static String getRegExString(Scanner pipe, String prompt, String regEx){
-        String value = "";
-        boolean gotAValue = false;
+        String get = "";
+        boolean exDone = false;
 
-        do{
-            System.out.println('\n' + prompt + ": ");
-            value = pipe.nextLine();
-            if(value.matches(regEx)){
-                gotAValue = true;
+        do
+        {
+            System.out.println(" " + prompt + ": ");
+            get = pipe.nextLine();
+            if(get.matches(regEx)){
+                exDone = true;
 
-            }else{
-                System.out.println("\nInvalid input: " + value);
             }
-        }while(!gotAValue);
-        return value;
+            else
+            {
+                System.out.println(" Invalid input: " + get);
+            }
+        }while(!exDone);
+        return get;
     }
 
-    public static Boolean prettyHeader(Scanner pipe, String prompt) {
-        int headerWidth = 60;
-        String userInput;
-        boolean isValid = false;
 
-        do {
-            System.out.print("\n"+ prompt + ": ");
-            String trash = "";
-            userInput = pipe.nextLine().trim();
-            //userInput.matches("^[a-zA-Z\\s]*$") &&
-            if (userInput.length() <= 54) {
-                isValid = true;
-            } else {
-                trash = pipe.nextLine();
-                System.out.println("Invalid input. Please enter a valid message (54 characters or fewer).");
-            }
-        } while (!isValid);
-
-        int messageWidth = userInput.length();
-        int leftPadding = (headerWidth - messageWidth - 6) / 2;
-        int rightPadding = headerWidth - messageWidth - 6 - leftPadding;
-
-        System.out.println();
-        for (int i = 0; i < headerWidth; i++) {
-            System.out.print("*");
-        }
-        System.out.println();
-
-        for(int i = 0; i < 3; i++){
-            System.out.print("*");
-        }
-        for (int i = 0; i < leftPadding; i++) {
-            System.out.print(" ");
-        }
-        System.out.print(userInput);
-        for (int i = 0; i < rightPadding; i++) {
-            System.out.print(" ");
-        }
-        for(int i = 0; i < 3; i++){
-            System.out.print("*");
-        }
-        System.out.println();
-        for (int i = 0; i < headerWidth; i++) {
-            System.out.print("*");
-        }
-        System.out.println();
-        return(isValid);
-    }
 
 
 }

@@ -72,7 +72,7 @@ public class BirthDateTime {
         h = SafeInput.getRangedInt(in, "Enter your hour of birth",00,24);
         min = SafeInput.getRangedInt(in, "Enter your minute of birth",00,60);
 
-        System.out.println("\nYou were born on "+ m + " " + d + " at " + h + ":" + min + " in " +y);
+        System.out.println("\nYou were born on "+ m + "/6" + d + " at " + h + ":" + min + " in " +y);
 
     }
 

@@ -10,7 +10,7 @@ public class GetUsername {
         String lastname = "";
         firstname = SafeInput.getNonZeroLenString(in, "Enter your firstname");
         lastname = SafeInput.getNonZeroLenString(in, "Enter your lastname");
-        System.out.println("Your full name is " + firstname + " " + lastname + ".");
+        System.out.println("Your full name is " + firstname + "" + lastname + ".");
     }
 
 }
